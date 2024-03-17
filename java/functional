@@ -1,1 +1,16 @@
-my interview notes
+public class JExpt {
+    public static void main(String[] args) {
+        List.of(new Emp("bat", 100), new Emp("cat", 120),
+                        new Emp("rat", 70), new Emp("bat", 95), new Emp("rat", 105))
+                .stream().collect(Collectors.groupingBy(Emp::name, Collectors.summingDouble(Emp::salary)))
+                .forEach((x, y) -> System.out.println(y));
+
+    }
+
+    record Emp(String name, double salary) {}
+}
+
+        List.of(new Emp("bat", 100), new Emp("cat", 120),
+                        new Emp("rat", 70), new Emp("bat", 95), new Emp("rat", 105))
+                .stream().reduce(0D, (acc, y) -> acc + y.salary, (x, y) -> x + y);
+
