@@ -14,3 +14,28 @@ public class JExpt {
                         new Emp("rat", 70), new Emp("bat", 95), new Emp("rat", 105))
                 .stream().reduce(0D, (acc, y) -> acc + y.salary, (x, y) -> x + y);
 
+======================================================================================
+var mp = s.chars().mapToObj(x -> ((char)x) + "")
+.parallel()
+    .collect(HashMap<String, Integer>::new, 
+    (HashMap<String, Integer>m, String s2) -> m.put(s2, m.getOrDefault(s2, 0) + 1), 
+    (HashMap<String, Integer>m1, HashMap<String, Integer>m2) -> {
+        for(var k: m2.keySet()){
+            m1.put(k, m1.getOrDefault(k, 0) + m2.get(k));
+        }
+    });
+
+=====================================================================================
+Stream.of(new Salary(1, 100.1), new Salary(2, 121.3), new Salary(1, 110.5))
+    .collect(Collectors.groupingBy(
+        x -> x.id, 
+    Collector.of(
+        HashMap<Integer, Double>::new,
+        (m, s) -> m.put(s.id, m.getOrDefault(s.id, 0D) + s.salary),
+        (m1, m2) -> {
+            m1.putAll(m2);
+            return m1;
+        },
+        Collector.Characteristics.UNORDERED)
+    ))
+record Salary(Integer id, Double salary) {}
