@@ -1,0 +1,56 @@
+Exchanger vs SynchronousQueue
+CountdownLatch
+CyclicBarrier
+Phaser
+
+CompletableFuture supplyAsync thenApplyAsync thenApplyAsync thenAccept
+thenCompose returns a Future
+cf1.thenCombine(cf2) returns a combined future
+cf.allOf(cf1, cf2..).thenApply
+
+CompletableFuture[] fs = new CompletableFuture[]{CompletableFuture.supplyAsync(() -> "cat"), CompletableFuture.supplyAsync(() -> "rat"), 
+CompletableFuture.supplyAsync(() -> "bat")};
+var f = CompletableFuture.allOf(fs)
+.thenAcceptAsync(x -> {
+    Arrays.stream(fs).forEach(o -> { 
+        try {
+            System.out.println(o.get());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+    });
+});
+f.join();
+
+
+public void set(double amt) {
+    while(lock.compareAndSet(true, true));
+    lock.set(true);
+    // do some work
+    lock.set(false);
+}
+
+new Thread().setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
+    public void uncaughtException(Thread t, Throwable e){}
+});
+
+        var ph = new Phaser(1);
+        ph.register(); // current thread registers.. 2 parties now
+        ph.bulkRegister(2); // 4 parties
+        var cf1 = CompletableFuture.runAsync(() -> {
+            System.out.println("1. " + ph);
+            ph.arriveAndAwaitAdvance();
+            System.out.println("1. " + ph);
+        });
+        var cf2 = CompletableFuture.runAsync(() -> {
+            System.out.println("2. " + ph);
+            ph.arriveAndAwaitAdvance();
+            System.out.println("2. " + ph);
+        });
+        var cf3 = CompletableFuture.runAsync(() -> {
+            System.out.println("3. " + ph);
+            ph.arriveAndAwaitAdvance();
+            System.out.println("3. " + ph);
+        });
+        ph.arriveAndAwaitAdvance();
+        System.out.println("4. " + ph);
