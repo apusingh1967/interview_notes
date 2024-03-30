@@ -1,7 +1,17 @@
+ReentrantLock
+ReadWriteLock
+StampedLock
 Exchanger vs SynchronousQueue
 CountdownLatch
 CyclicBarrier
 Phaser
+
+How to deal with deadlock:
+tryLock timed
+tryLockInterruptibly
+stamped lock optimistic locking
+JMX
+lock ordering
 
 CompletableFuture supplyAsync thenApplyAsync thenApplyAsync thenAccept
 thenCompose returns a Future
