@@ -10,9 +10,9 @@ public class JExpt {
     record Emp(String name, double salary) {}
 }
 
-        List.of(new Emp("bat", 100), new Emp("cat", 120),
-                        new Emp("rat", 70), new Emp("bat", 95), new Emp("rat", 105))
-                .stream().reduce(0D, (acc, y) -> acc + y.salary, (x, y) -> x + y);
+List.of(new Emp("bat", 100), new Emp("cat", 120),
+                new Emp("rat", 70), new Emp("bat", 95), new Emp("rat", 105))
+        .stream().reduce(0D, (acc, y) -> acc + y.salary, (x, y) -> x + y);
 
 ======================================================================================
 var mp = s.chars().mapToObj(x -> ((char)x) + "")
@@ -44,3 +44,15 @@ Stream.of(new Salary(1, 100.1), new Salary(2, 121.3), new Salary(1, 110.5))
         Collector.Characteristics.UNORDERED)
     ))
 record Salary(Integer id, Double salary) {}
+======================================================================================
+        var s = """
+                tom loves mike
+                mike loves jane
+                jane loves tom
+                """;
+
+        s.lines().map(x -> Stream.of(x.split("\\s+"))).flatMap(Function.identity())
+            .collect(Collectors.groupingBy(Function.identity()))
+            .entrySet().stream().collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue().size()))
+            .entrySet().forEach(System.out::println);;
+
