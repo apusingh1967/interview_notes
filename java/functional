@@ -45,14 +45,19 @@ Stream.of(new Salary(1, 100.1), new Salary(2, 121.3), new Salary(1, 110.5))
     ))
 record Salary(Integer id, Double salary) {}
 ======================================================================================
-        var s = """
-                tom loves mike
-                mike loves jane
-                jane loves tom
-                """;
+var s = """
+        tom loves mike
+        mike loves jane
+        jane loves tom
+        """;
 
-        s.lines().map(x -> Stream.of(x.split("\\s+"))).flatMap(Function.identity())
-            .collect(Collectors.groupingBy(Function.identity()))
-            .entrySet().stream().collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue().size()))
-            .entrySet().forEach(System.out::println);;
+s.lines().map(x -> Stream.of(x.split("\\s+"))).flatMap(Function.identity())
+    .collect(Collectors.groupingBy(Function.identity()))
+    .entrySet().stream().collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue().size()))
+    .entrySet().forEach(System.out::println);
+=======================================================================================
+li.stream().collect(Collectors.groupingBy(x -> x.dept(), 
+    Collectors.groupingBy(x -> x.name(), 
+    Collectors.summingDouble(x -> x.salary()))))
+    .entrySet().forEach(System.out::println);
 
