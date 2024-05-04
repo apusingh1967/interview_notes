@@ -64,3 +64,15 @@ new Thread().setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
         });
         ph.arriveAndAwaitAdvance();
         System.out.println("4. " + ph);
+
+====================================================================
+        CompletableFuture<Integer> combinedFuture = future1.thenCombine(future2, (result1, result2) -> result1 + result2)
+                                                            .thenCombine(future3, (result12, result3) -> result12 + result3);
+        combinedFuture.thenAccept(result -> {
+            System.out.println("Aggregated Result: " + result);
+        });
+        combinedFuture.exceptionally(ex -> {
+            System.err.println("Error occurred: " + ex);
+            return null;
+        });
+        combinedFuture.get(); 
