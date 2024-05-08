@@ -5,6 +5,7 @@ Exchanger vs SynchronousQueue
 CountdownLatch
 CyclicBarrier
 Phaser
+https://medium.com/@avocadi/java-disruptor-4e4432bcafcb
 
 How to deal with deadlock:
 tryLock timed
