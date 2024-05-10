@@ -60,4 +60,7 @@ li.stream().collect(Collectors.groupingBy(x -> x.dept(),
     Collectors.groupingBy(x -> x.name(), 
     Collectors.summingDouble(x -> x.salary()))))
     .entrySet().forEach(System.out::println);
-
+=======================================================================================
+s.lines().flatMap(l -> Stream.of(l.split("\\s+")))
+        .collect(Collectors.toMap(x -> x, v -> 1, Integer::sum))
+        .forEach((k, v) -> System.out.println(k + " -> " + v));
