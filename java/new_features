@@ -1,2 +1,18 @@
 https://advancedweb.hu/a-categorized-list-of-all-java-and-jvm-features-since-jdk-8-to-21/
+=========================================================
+    private Integer m(Operation op) {
+        return switch(op){
+            case On(var s) when s.equals("ON") -> 1;
+            case On on -> Integer.valueOf(on.s());
+            case Off off -> 2;
+           // default -> throw new IllegalStateException("Unexpected value: " + op);
+        };
+    }
+
+    abstract sealed interface Operation permits On, Off {}
+    record On(String s) implements Operation{}
+    record Off(String s) implements Operation{}
+
+==========================================================
+
 
