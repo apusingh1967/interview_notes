@@ -64,3 +64,8 @@ li.stream().collect(Collectors.groupingBy(x -> x.dept(),
 s.lines().flatMap(l -> Stream.of(l.split("\\s+")))
         .collect(Collectors.toMap(x -> x, v -> 1, Integer::sum))
         .forEach((k, v) -> System.out.println(k + " -> " + v));
+=======================================================================================
+		Arrays.stream(s.split("\\s+")).collect(Collectors.groupingBy(
+				x -> x, Collectors.summingInt((x) -> 1)
+		)).forEach((k, v) -> System.out.println(k + " -> " + v));
+=======================================================================================
